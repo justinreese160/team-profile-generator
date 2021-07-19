@@ -1,0 +1,27 @@
+header {
+    background-color: red;
+    color: white;
+    height: 15vh;
+    text-align: center;
+    font-size: 6vh;
+}
+
+.card {
+    margin: 8vh;
+    border-radius: 25px;
+    border: solid black 5px;
+
+    
+}
+
+.card-body {
+    margin: 5vh;
+    
+}
+
+.row {
+    justify-content: center;
+}
+
+
+    

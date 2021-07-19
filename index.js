@@ -3,6 +3,7 @@ var fs = require("fs");
 var Engineer = require("./lib/Engineer");
 var Intern = require("./lib/Intern");
 var Manager = require("./lib/Manager");
+var generateHTML = require('./src/generateHTML')
 var teamMembers = []
 
 const internQuestions = [
@@ -76,16 +77,16 @@ const engineerQuestions = [
 
 const continueQuestions = [
   {
-    type: "choice",
+    type: "list",
     name: "type",
     message: "choose employee role",
-    choices: ["enginner", "manager", "intern"],
+    choices: ["enginner", "manager", "intern", "I'm done entering employees"],
   },
-  {
-    type: "confirm",
-    name: "continue",
-    message: "Do you want to continue entering employees?",
-  },
+  // {
+  //   type: "confirm",
+  //   name: "continue",
+  //   message: "Do you want to continue entering employees?",
+  // },
 ];
 
 function init() {
@@ -103,11 +104,12 @@ function init() {
           break;
 
         default:
+          writeToHtml()
           break;
       }
-    }else{
-        //use team members array to build html//
     }
+        
+    
   });
 }
 
@@ -127,8 +129,17 @@ function createManager(){
 }
 function createIntern(){
     inquirer.prompt(internQuestions).then(function(answers){
-        var newintern = new Intern(answers.name, answers.Id, answers.email, answers.school)
+        var newIntern = new Intern(answers.name, answers.Id, answers.email, answers.school)
         teamMembers.push(newIntern)
         init()
     })
 }
+
+
+
+// function writeToHtml(){
+//   fs.writeFile(fileName, data,)
+// }
+// wherever you run generateHTML, do it as generateHTML(teamMembers)
+
+init()
