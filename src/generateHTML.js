@@ -1,72 +1,113 @@
 const managerCard = (manager) => {
-  return `
-    <div class="card" style="width: 18rem">
-    <div class="card-body">
-      <h5 class="card-title">Manager</h5>
-    <div class="card-body">   
-      <ul>
-      <li>Manager Name: ${manager.name}</li>
-      <li>Manager Id: ${manager.Id}</li>
-      <li>Manager email: ${manager.email}</li>
-      <li>Manager office number: ${manager.officeNumber}</li>
-      </ul>
-    </div>   
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
+    return `
+    <div class="card col" style="width: 18rem">
+    <div class="card-header">
+    <h5 class="card-title">Manager</h5>
     </div>
+    <div class="card-body">   
+    <ul>
+    <li>Name: ${manager.name}</li>
+    <li>Id: ${manager.Id}</li>
+    <li>email: ${manager.email}</li>
+    <li>office number: ${manager.officeNumber}</li>
+    </ul>
+  </div>   
+    </div>
+    
+      
+    
     `;
 };
-const managerCard = (intern) => {
-  return `
-      <div class="card" style="width: 18rem">
-      <div class="card-body">
-        <h5 class="card-title">Intern</h5>
-      <div class="card-body">   
-        <ul>
-        <li>Manager Name: ${intern.name}</li>
-        <li>Manager Id: ${intern.Id}</li>
-        <li>Manager email: ${intern.email}</li>
-        <li>Manager office number: ${intern.school}</li>
-        </ul>
-      </div>   
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
-      `;
+const engineerCard = (engineer) => {
+    return `
+  <div class="card col" style="width: 18rem">
+  <div class="card-header">
+  <h5 class="card-title">Engineer</h5>
+  </div>
+  <div class="card-body">   
+  <ul>
+  <li>Name: ${engineer.name}</li>
+  <li>Id: ${engineer.Id}</li>
+  <li>email: ${engineer.email}</li>
+  <li>github: ${engineer.gitHub}</li>
+  </ul>
+</div>   
+  </div>
+  
+    
+  
+  `;
 };
-const managerCard = (engineer) => {
-  return `
-      <div class="card" style="width: 18rem">
-      <div class="card-body">
-        <h5 class="card-title">Engineer</h5>
-      <div class="card-body">   
-        <ul>
-        <li>Manager Name: ${engineer.name}</li>
-        <li>Manager Id: ${engineer.Id}</li>
-        <li>Manager email: ${engineer.email}</li>
-        <li>Manager office number: ${engineer.gitHub}</li>
-        </ul>
-      </div>   
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
-      `;
+const internCard = (intern) => {
+    return `
+  <div class="card col" style="width: 18rem">
+  <div class="card-header">
+  <h5 class="card-title">Intern</h5>
+  </div>
+  <div class="card-body">   
+  <ul>
+  <li>Name: ${intern.name}</li>
+  <li>Id: ${intern.Id}</li>
+  <li>email: ${intern.email}</li>
+  <li>office number: ${intern.school}</li>
+  </ul>
+</div>   
+  </div>
+  
+    
+  
+  `;
 };
+// const internCard = (intern) => {
+//     return `
+//       <div class="card col" style="width: 18rem">
+//       <div class="card-header">
+//         <h5 class="card-title">Intern</h5>
+//       <div class="card-body">   
+//         <ul>
+//         <li>Intern Name: ${intern.name}</li>
+//         <li>Intern Id: ${intern.Id}</li>
+//         <li>Intern email: ${intern.email}</li>
+//         <li>Intern school: ${intern.school}</li>
+//         </ul>
+//       </div>   
+
+//       </div>
+//       `;
+// };
+// const engineerCard = (engineer) => {
+//     return `
+//       <div class="card col" style="width: 18rem">
+//       <div class="card-header">
+//         <h5 class="card-title">Engineer</h5>
+//       <div class="card-body">   
+//         <ul>
+//         <li>Engineer Name: ${engineer.name}</li>
+//         <li>Engineer Id: ${engineer.Id}</li>
+//         <li>Engineer email: ${engineer.email}</li>
+//         <li>Engineer git hub: ${engineer.gitHub}</li>
+//         </ul>
+//       </div>   
+
+//       </div>
+//       `;
+// };
 
 const generateHTML = (teamMembers) => {
-  const cardArray = [];
+    const cardArray = [];
 
-  teamMembers.forEach((item) => {
-    if (item.role === manager) {
-      cardArray.push(managerCard(item));
-    } else if (item.role === engineer) {
-      cardArray.push(engineerCard(item));
-    } else if (item.role === intern) {
-      cardArray.push(internCard(item));
-    }
-  });
+    teamMembers.forEach((item) => {
+        console.log(item.getRole());
+        if (item.getRole() === "Manager") {
+            cardArray.push(managerCard(item));
+        } else if (item.getRole() === "Engineer") {
+            cardArray.push(engineerCard(item));
+        } else if (item.getRole() === "Intern") {
+            cardArray.push(internCard(item));
+        }
+    });
 
-  return `
+    return `
     <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -79,13 +120,19 @@ const generateHTML = (teamMembers) => {
       integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./src/style.css" />
 
     <title>Document</title>
   </head>
   <body>
     <header>My Team</header>
-    ${cardArray}
+    <div class="row">
+    
+    ${cardArray.join()}
+    
+    </div>
   </body>  
     `;
 };
+
+module.exports = generateHTML;

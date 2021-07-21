@@ -3,8 +3,8 @@ var fs = require("fs");
 var Engineer = require("./lib/Engineer");
 var Intern = require("./lib/Intern");
 var Manager = require("./lib/Manager");
-var generateHTML = require('./src/generateHTML')
-var teamMembers = []
+var generateHTML = require("./src/generateHTML");
+var teamMembers = [];
 
 const internQuestions = [
   {
@@ -80,7 +80,7 @@ const continueQuestions = [
     type: "list",
     name: "type",
     message: "choose employee role",
-    choices: ["enginner", "manager", "intern", "I'm done entering employees"],
+    choices: ["engineer", "manager", "intern", "I'm done entering employees"],
   },
   // {
   //   type: "confirm",
@@ -91,55 +91,75 @@ const continueQuestions = [
 
 function init() {
   inquirer.prompt(continueQuestions).then(function (answers) {
-    if (answers.continue === true) {
-      switch (answers.type) {
-        case "engineer":
-          createEngineer();
-          break;
-        case "manager":
-          createManager();
-          break;
-        case "intern":
-          createIntern();
-          break;
+    // if (answers.continue === true) {
+    switch (answers.type) {
+      case "engineer":
+        createEngineer("engineer");
+        break;
+      case "manager":
+        createManager("manager");
+        break;
+      case "intern":
+        createIntern("intern");
+        break;
+      case "I'm done entering employees":
+        writeToHtml();
+        break;
 
-        default:
-          writeToHtml()
-          break;
-      }
+      default:
+        // writeToHtml();
+        break;
     }
-        
-    
+    // }
   });
 }
 
-function createEngineer(){
-    inquirer.prompt(engineerQuestions).then(function(answers){
-        var newEngineer = new Engineer(answers.name, answers.Id, answers.email, answers.gitHub)
-        teamMembers.push(newEngineer)
-        init()
-    })
+function createEngineer(role) {
+  inquirer.prompt(engineerQuestions).then(function (answers) {
+    var newEngineer = new Engineer(
+      answers.name,
+      answers.Id,
+      answers.email,
+      answers.gitHub,
+      role
+    );
+    teamMembers.push(newEngineer);
+    init();
+  });
 }
-function createManager(){
-    inquirer.prompt(managerQuestions).then(function(answers){
-        var newManager = new Manager(answers.name, answers.Id, answers.email, answers.officeNumber)
-        teamMembers.push(newManager)
-        init()
-    })
+function createManager(role) {
+  inquirer.prompt(managerQuestions).then(function (answers) {
+    var newManager = new Manager(
+      answers.name,
+      answers.Id,
+      answers.email,
+      answers.officeNumber,
+      role
+      
+    );
+    teamMembers.push(newManager);
+    init();
+  });
 }
-function createIntern(){
-    inquirer.prompt(internQuestions).then(function(answers){
-        var newIntern = new Intern(answers.name, answers.Id, answers.email, answers.school)
-        teamMembers.push(newIntern)
-        init()
-    })
+function createIntern(role) {
+  inquirer.prompt(internQuestions).then(function (answers) {
+    var newIntern = new Intern(
+      answers.name,
+      answers.Id,
+      answers.email,
+      answers.school,
+      role
+    );
+    teamMembers.push(newIntern);
+    init();
+  });
 }
 
+function writeToHtml() {
+  console.log(teamMembers);
+  fs.writeFile("teamMembers.html", generateHTML(teamMembers), (err)=>{
+    err?console.log(err): console.log("success")
+  });
+}
 
-
-// function writeToHtml(){
-//   fs.writeFile(fileName, data,)
-// }
-// wherever you run generateHTML, do it as generateHTML(teamMembers)
-
-init()
+init();

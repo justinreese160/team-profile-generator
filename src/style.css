@@ -4,24 +4,14 @@ header {
     height: 15vh;
     text-align: center;
     font-size: 6vh;
+    margin-bottom: 15vh;
 }
 
 .card {
-    margin: 8vh;
+    display: inline-block;
+    border: solid black 3px;
     border-radius: 25px;
-    border: solid black 5px;
-
-    
+    background-color: royalblue;
+    color: white;
+    margin: 2vh
 }
-
-.card-body {
-    margin: 5vh;
-    
-}
-
-.row {
-    justify-content: center;
-}
-
-
-    
